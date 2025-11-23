@@ -5,6 +5,7 @@ import { Metadata, Viewport } from "next";
 import { Providers } from "./providers";
 import { siteConfig } from "./config/site";
 import { fontSans } from "./config/fonts";
+
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
           fontSans.variable,
         )}
       >
+        {/* Provider chỉ nằm trong <body>, KHÔNG wrap <html> */}
         <Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
           {children}
         </Providers>

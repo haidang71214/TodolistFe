@@ -1,4 +1,4 @@
-import { LoginRequest, LoginResponse, User } from "@/types";
+import { LoginRequest, LoginResponse } from "@/types";
 import { baseApi } from "../base";
 
 import { authEndpoint } from "@/constants/endpoints";
@@ -13,25 +13,16 @@ export const authApi = baseApi.injectEndpoints({
         body: params,
       }),
     }),
-    // tự add phương thức sửa dữ liệu
-    verifyToken: builder.mutation<User, null>({
-      query: () => ({
-        url: authEndpoint.DETAIL,
-        method: "GET",
-      }),
-    }),
     // đọc dữ liệu
-    checkTokenRole: builder.query<{ role: string | null }, string>({
-      query: (token) => ({
-        url: authEndpoint.CHECK_TOKEN.replaceAll("{token}", token),
-        method: "GET",
-      }),
-    }),
+    // checkTokenRole: builder.query<{ role: string | null }, string>({
+    //   query: (token) => ({
+    //     url: authEndpoint.CHECK_TOKEN.replaceAll("{token}", token),
+    //     method: "GET",
+    //   }),
+    // }),
   }),
 });
 
 export const {
   useLoginMutation,
-  useVerifyTokenMutation,
-  useCheckTokenRoleQuery,
 } = authApi;

@@ -26,17 +26,16 @@ declare module "@react-types/shared" {
 }
 export function Providers({ children, themeProps }:  Readonly<ProvidersProps>) {
   return (
-    // 1. NextThemesProvider PHẢI Ở NGOÀI CÙNG (cung cấp theme context)
-    <NextThemesProvider {...themeProps}>
-      {/* 2. HeroUIProvider phải nằm TRONG NextThemesProvider */}
-      <HeroUIProvider>
-        <ModalProvider>
-          <Provider store={store}>
-            {children}
-          </Provider>
-        </ModalProvider>
-        <ToastProvider placement="bottom-right" />
-      </HeroUIProvider>
-    </NextThemesProvider>
+  <Provider store={store}>
+  <NextThemesProvider {...themeProps}>
+    <HeroUIProvider>
+      <ModalProvider>
+        {children}
+      </ModalProvider>
+      <ToastProvider placement="bottom-right" />
+    </HeroUIProvider>
+  </NextThemesProvider>
+</Provider>
+
   );
 }
