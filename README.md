@@ -1,1 +1,1 @@
-Code này setup để project sau dễ dùng nhất, ở commit thứ 2 sẽ là commit setup querymutation và ép cái rtk query vào reducer để quản lí state, nói chung cái lồn gì cũng ổn rồi
+Code này setup để project sau dễ dùng nhất, ở commit thứ 2 sẽ là commit setup querymutation và ép cái rtk query vào reducer để quản lí state, nói chung cái lồn gì cũng ổn rồi, ae xài thì cứ clone cái commit setupfile fontend gì gì đó về, học slice reducer với rtk query mà xài
