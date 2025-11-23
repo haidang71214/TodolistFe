@@ -10,7 +10,7 @@ import * as React from "react";
 import { Provider } from "react-redux";
 
 import { store } from "@/store";
-import { ModalProvider } from "./Provider/ModalProvider";
+import { ModalProvider } from "../Provider/ModalProvider";
 
 export interface ProvidersProps {
   children: React.ReactNode;

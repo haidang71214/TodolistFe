@@ -1,6 +1,5 @@
 'use client';
 import React from 'react';
-import "../globals.css";
 import { Navbar, NavbarContent, NavbarItem, Link, Button, NavbarBrand } from "@heroui/react";
 import { useModal } from './ModalProvider';
 import LoginModal from './LoginModal';
@@ -43,12 +42,12 @@ const handleOpenRegister = () =>{
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
-          <Link   color="danger" href="#" >
+          <Link   color="danger" href="/project" >
             Manager Todolist
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="#">
+          <Link color="foreground" href="/todolist">
             Project Todolist
           </Link> 
         </NavbarItem>
