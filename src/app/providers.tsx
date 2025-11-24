@@ -11,6 +11,7 @@ import { Provider } from "react-redux";
 
 import { store } from "@/store";
 import { ModalProvider } from "../Provider/ModalProvider";
+import AuthProvider from "@/Provider/AuthProvider";
 
 export interface ProvidersProps {
   children: React.ReactNode;
@@ -30,7 +31,9 @@ export function Providers({ children, themeProps }:  Readonly<ProvidersProps>) {
   <NextThemesProvider {...themeProps}>
     <HeroUIProvider>
       <ModalProvider>
+        <AuthProvider>
         {children}
+        </AuthProvider>
       </ModalProvider>
       <ToastProvider placement="bottom-right" />
     </HeroUIProvider>

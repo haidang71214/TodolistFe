@@ -3,8 +3,8 @@ import { baseApi } from "../base";
 
 import { authEndpoint } from "@/constants/endpoints";
 
-// viết mutation ở đây 
 export const authApi = baseApi.injectEndpoints({
+  overrideExisting: true, 
   endpoints: (builder) => ({
     login: builder.mutation<{ result: LoginResponse }, LoginRequest>({
       query: (params) => ({
@@ -13,15 +13,9 @@ export const authApi = baseApi.injectEndpoints({
         body: params,
       }),
     }),
-    // đọc dữ liệu
-    // checkTokenRole: builder.query<{ role: string | null }, string>({
-    //   query: (token) => ({
-    //     url: authEndpoint.CHECK_TOKEN.replaceAll("{token}", token),
-    //     method: "GET",
-    //   }),
-    // }),
   }),
 });
+
 
 export const {
   useLoginMutation,

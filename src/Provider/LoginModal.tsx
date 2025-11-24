@@ -24,7 +24,7 @@ export default function LoginModal() {
         return;
       }
 
-      const token = res.result.token;
+      const token = res.result;
       console.log("Login thành công, token:", token);
 
       addToast({

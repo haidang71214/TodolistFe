@@ -1,10 +1,9 @@
 import React from 'react'
 
-export default function Home() {
+export default function ProfileUpdate() {
   return (
     <div>
-        loz
+      
     </div>
   )
 }
-

@@ -9,11 +9,11 @@ export type User = {
   name: string;
   email: string;
   phone: string;
-  role_name: string;
+  role: string;
   face_id: string;
   created_at: string;
   updated_at: string;
-  avartar_url: string;
+  imagesUrl: string;
   reset_token: string;
 };
 
@@ -21,7 +21,7 @@ export type LoginRequest = {
   email: string;
   password: string;
 };
-
+// đã nhét user vào đây
 export type LoginResponse = {
   token: string;
   user: User;

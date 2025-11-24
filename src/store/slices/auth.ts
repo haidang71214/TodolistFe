@@ -2,15 +2,19 @@ import { createSlice } from "@reduxjs/toolkit";
 import { User } from "@/types";
 import webStorageClient from "@/utils/webStorageClient";
 import { authApi } from "../queries/auth";
+
 interface AuthSlickInterface {
   isAuthenticatedAccount: boolean;
   user?: User;
+  isHydrated: boolean;
 }
 
 const initialState: AuthSlickInterface = {
   isAuthenticatedAccount: false,
+  user: undefined,
+  isHydrated: false,
 };
-// tạo slice để phân phát state
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -23,22 +27,29 @@ export const authSlice = createSlice({
       state.user = undefined;
       state.isAuthenticatedAccount = false;
       webStorageClient.setToken("");
+      webStorageClient.logout();
+    },
+    setHydrated: (state, action) => {
+      state.isHydrated = action.payload ?? true;
     },
   },
-  // xử lí action ngoài slice, slice bình thường sẽ không gọi những thứ này 
   extraReducers: (builder) => {
-    // match với api, nếu api call thành công thì action sẽ khớp matcher này  Khi login API thành công, lưu token và user vào state Redux
     builder.addMatcher(
       authApi.endpoints.login.matchFulfilled,
       (state, action) => {
-        webStorageClient.setToken(action.payload?.result.token);
-        state.user = action.payload.result.user;
-        if (state.user.user_id) state.isAuthenticatedAccount = true;
+        const user = action.payload?.result.user;
+        const token = action.payload?.result.token;
+
+        webStorageClient.setToken(token);
+        webStorageClient.setUser(user);
+
+        state.user = user;
+        state.isAuthenticatedAccount = true;
       },
     );
   },
 });
 
-export const { loginFromToken, clearLoginToken } = authSlice.actions;
+export const { loginFromToken, clearLoginToken, setHydrated } = authSlice.actions;
 
 export default authSlice.reducer;

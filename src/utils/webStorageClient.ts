@@ -2,7 +2,8 @@ import { getCookie, setCookie } from "cookies-next";
 import Cookies from "js-cookie";
 import _ from "lodash";
 
-import { ACCESS_TOKEN } from "@/constants";
+import { ACCESS_TOKEN, USER_INFO } from "@/constants";
+import { User } from "@/types";
 
 type CookieOption = Record<string, unknown>; // thay any
 type RawValue = string | number | boolean | Record<string, unknown> | unknown[]; // thay any
@@ -15,6 +16,23 @@ const webStorageClient = {
 
     setCookie(key, value, option);
   },
+   getUser: () => {
+    const u = localStorage.getItem(USER_INFO);
+    return u ? JSON.parse(u) : null;
+  },
+
+  setUser: (user: User) => {
+    localStorage.setItem(USER_INFO, JSON.stringify(user));
+  },
+  // webStorageClient.ts
+removeUser: () => {
+  localStorage.removeItem(USER_INFO);
+  localStorage.removeItem(ACCESS_TOKEN);
+},
+logout: () => {
+  localStorage.removeItem(USER_INFO);
+  localStorage.removeItem(ACCESS_TOKEN);
+},
 
   get(key: string) {
     const value = (getCookie(key, { path: "/" }) as string) || "";
