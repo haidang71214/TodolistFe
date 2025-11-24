@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import _ from "lodash";
 
 import { ACCESS_TOKEN, USER_INFO } from "@/constants";
-import { User } from "@/types";
+import { Users } from "@/types";
 
 type CookieOption = Record<string, unknown>; // thay any
 type RawValue = string | number | boolean | Record<string, unknown> | unknown[]; // thay any
@@ -21,7 +21,7 @@ const webStorageClient = {
     return u ? JSON.parse(u) : null;
   },
 
-  setUser: (user: User) => {
+  setUser: (user: Users) => {
     localStorage.setItem(USER_INFO, JSON.stringify(user));
   },
   // webStorageClient.ts
