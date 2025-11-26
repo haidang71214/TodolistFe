@@ -3,13 +3,17 @@
 import React, { useState } from 'react';
 import { Input, Button, addToast, ModalFooter } from '@heroui/react';
 import { useLoginMutation } from '@/store/queries/auth';
-import { useModal } from './ModalProvider';
+
+import { useRouter } from 'next/navigation';
+import { useModal } from '@/Provider/ModalProvider';
+
 
 export default function LoginModal() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [login] = useLoginMutation();
   const { closeModal } = useModal();
+  const router = useRouter();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); // NGĂN reload page
 
@@ -26,7 +30,7 @@ export default function LoginModal() {
 
       const token = res.result;
       console.log("Login thành công, token:", token);
-
+      router.push("/")
       addToast({
         title: "Đăng nhập thành công",
       });

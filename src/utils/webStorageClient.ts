@@ -31,8 +31,9 @@ removeUser: () => {
 },
 logout: () => {
   localStorage.removeItem(USER_INFO);
-  localStorage.removeItem(ACCESS_TOKEN);
+  setCookie(ACCESS_TOKEN, "", { maxAge: 0 }); // 🔥 xoá token cookie đúng
 },
+
 
   get(key: string) {
     const value = (getCookie(key, { path: "/" }) as string) || "";

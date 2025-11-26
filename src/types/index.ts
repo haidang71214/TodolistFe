@@ -16,16 +16,17 @@ export type LoginResponse = {
 };
 
 export enum TaskStatusEnum {
-  PROGRESS = 0,
-  DONE = 1,
-  PENDING = 2
+  PROGRESS="PROGRESS",
+  DONE="COMPLETE",
+  PENDING="IN_PROGRESS" 
 }
 
 export enum PriorityEnums {
-  CLEAR = 0,
-  LOW = 1,
-  MEDIUM = 2,
-  HIGH = 3
+  URGENT="URGENT",
+  CLEAR="CLEAR",
+  LOW="LOW",
+  MEDIUM = "NOMAL",
+  HIGH = "HIGHT"
 }
 
 export enum RoleEnums {
@@ -58,6 +59,7 @@ export interface Todolists {
   usersId?: string | null;
   user: Users;
 }
+export type TodolistsArray = Todolists[]; // array các todo
 
 export interface TodoSection {
   id: string;
@@ -133,12 +135,13 @@ export interface CreateTodoListSectionDto {
 
 export interface TodolistCreateRequestDto {
   name: string;
-  taskStatus: TaskStatusEnum;
-  priority: PriorityEnums;
+  taskStatus: string;
+  priority: string;
   comment: string;
   timeStart: string;
   timeEnd: string;
 }
+
 
 export interface TodolistUpdateRequestDto {
   name?: string | null;

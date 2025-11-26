@@ -1,10 +1,11 @@
 import React from 'react'
+import Todolist from './todolist/page'
 
 export default function Home() {
   return (
-    <div>
-        loz
-    </div>
+
+        <Todolist/>
+
   )
 }
 
