@@ -1,0 +1,35 @@
+name: Dockerized App Deployment
+
+on:
+  push:
+    branches: [production]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout source code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Deploy qua SSH
+      - name: Deploy using SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            cd /root/todolist
+            git fetch origin
+            git checkout production
+            git pull
+            # Build Docker image
+            docker-compose build
+            docker build -t todolistfe .
+            # Stop & remove old container
+            docker stop todolistfe-container || true
+            docker rm todolistfe-container || true
+            # Run new container
+            docker run -d --name todolistfe-container -p 4000:3000 todolistfe
