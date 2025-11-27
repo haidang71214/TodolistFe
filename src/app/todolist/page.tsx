@@ -23,20 +23,44 @@ export default function Todolist() {
   const [priorityFilter, setPriorityFilter] = useState<PriorityEnums | "ALL">("ALL");
     const [deleteTodo] = useDeleteTodolistForUserMutation();
     const {openModal} = useModal();
-  const handleDelete = async (id: string) => {
+ const [lastDeleteTime, setLastDeleteTime] = useState<number>(0);
+
+// Hàm xóa có cooldown 1000ms
+const handleDelete = async (id: string) => {
+  const now = Date.now();
+  
+  // Nếu chưa đủ 1 giây từ lần xóa trước → bỏ qua
+  if (now - lastDeleteTime < 1000) {
+    addToast({
+      title: "Chậm thôi nào!",
+      description: "Chỉ được xóa 1 task mỗi giây thôi nha",
+      color: "warning",
+    });
+    return;
+  }
+
+  // Cập nhật thời gian xóa ngay lập tức → chặn các lần click sau trong 1s
+  setLastDeleteTime(now);
+
   try {
-    await deleteTodo({id}).unwrap(); // ✅ đúng
-       addToast({
-  title: "Thành công",
-  description: "Xóa task thành công",
-});
+    await deleteTodo({ id }).unwrap();
+
+    addToast({
+      title: "Thành công",
+      description: "Xóa task thành công",
+      color: "success",
+    });
   } catch {
-        addToast({
-  title: "Thất bại",
-  description: "Xóa task thất bại",
-});
+    addToast({
+      title: "Thất bại",
+      description: "Xóa task thất bại",
+      color: "danger",
+    });
+
+    setLastDeleteTime(0);
   }
 };
+
 const handleOpenCreateTodolist = ()=>{
   openModal({
     title:"Tạo mới modal",
