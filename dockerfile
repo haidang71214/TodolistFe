@@ -21,18 +21,24 @@ FROM node:20-alpine AS runner
 
 WORKDIR /app
 
-# Copy package.json and node_modules (optional if you need runtime deps)
+ENV NODE_ENV=production
+
+# Copy only necessary runtime files
 COPY package.json package-lock.json* ./
+
+# Install only production dependencies
 RUN npm ci --omit=dev
 
 # Copy build output from builder
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/next.config.js ./
-COPY --from=builder /app/package.json ./
+
+# ⚠️ KHÔNG copy lại package.json từ builder (vô nghĩa & gây ghi đè)
+# ❌ COPY --from=builder /app/package.json ./
+# Gỡ bỏ dòng này
 
 # Expose port
 EXPOSE 3000
 
-# Run the app
+# Start Next.js
 CMD ["npm", "start"]

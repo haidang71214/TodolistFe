@@ -2,7 +2,7 @@ name: Dockerized App Deployment
 
 on:
   push:
-    branches: [production]
+    branches: [main]
 
 jobs:
   deploy:
@@ -24,10 +24,9 @@ jobs:
           script: |
             cd /root/todolist
             git fetch origin
-            git checkout production
+            git checkout main
             git pull
             # Build Docker image
-            docker-compose build
             docker build -t todolistfe .
             # Stop & remove old container
             docker stop todolistfe-container || true
