@@ -1,4 +1,4 @@
-import { LoginRequest, LoginResponse } from "@/types";
+import { EmailResetRequest, LoginRequest, LoginResponse, ResetPasswordRequest } from "@/types";
 import { baseApi } from "../base";
 import { authEndpoint } from "@/constants/endpoints";
 
@@ -42,6 +42,23 @@ export const authApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["User"], // nếu register thành công thì cũng invalidate để fetch lại user nếu cần
     }),
+    sendMailReset: builder.mutation<void, EmailResetRequest>({
+      query: (body) => ({
+        url: authEndpoint.SEND_RESET_PASS, // hoặc dùng authEndpoint.RESET_MAIL nếu bạn định nghĩa trong constants
+        method: "POST",
+        body,
+      }),
+    }),
+
+    // === ĐỔI MẬT KHẨU BẰNG TOKEN ===
+    resetPassword: builder.mutation<void, ResetPasswordRequest>({
+      query: (body) => ({
+        url: authEndpoint.SEND_CHANGE_PASS,
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["User"], 
+    }),
   }),
 });
 
@@ -49,4 +66,6 @@ export const authApi = baseApi.injectEndpoints({
 export const {
   useLoginMutation,
   useRegisterMutation, // mới thêm
+  useResetPasswordMutation,
+  useSendMailResetMutation
 } = authApi;

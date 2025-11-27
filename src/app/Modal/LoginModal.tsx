@@ -6,13 +6,15 @@ import { useLoginMutation } from '@/store/queries/auth';
 
 import { useRouter } from 'next/navigation';
 import { useModal } from '@/Provider/ModalProvider';
+import SendMailReset from './SendMailReset';
 
 
 export default function LoginModal() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [login] = useLoginMutation();
-  const { closeModal } = useModal();
+    const {openModal,closeModal} = useModal();
+
   const router = useRouter();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); // NGĂN reload page
@@ -43,7 +45,9 @@ export default function LoginModal() {
 
     }
   };
-
+const handleOpenSendEmail = ()=>{
+  openModal({title:"Send reset password",content:<SendMailReset/>})
+}
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
       <h2 className="text-lg font-semibold">Đăng nhập</h2>
@@ -74,6 +78,9 @@ export default function LoginModal() {
     <ModalFooter>
       <Button type="submit" color="danger" variant="solid">
         Login
+      </Button>
+      <Button onPress={() => {handleOpenSendEmail()}}  type="submit" color="danger" variant="flat">
+        Quên Mật Khẩu
       </Button>
       </ModalFooter>
     </form>

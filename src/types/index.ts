@@ -198,3 +198,11 @@ export interface UpdateUserDto {
   imagesUrl?: string | null;
   age?: number | null;
 }
+export interface EmailResetRequest {
+  email: string;
+}
+
+export interface ResetPasswordRequest {
+  token: string;
+  newPassword: string;
+}

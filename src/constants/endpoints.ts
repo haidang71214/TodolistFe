@@ -3,7 +3,9 @@ const API_PREFIX = "api";
 
 const authEndpoint = {
   LOGIN: `${API_PREFIX}/auth/login`,
-  REGISTER:`${API_PREFIX}/auth/register`
+  REGISTER:`${API_PREFIX}/auth/register`,
+  SEND_RESET_PASS:`${API_PREFIX}/auth/resetmail`,
+  SEND_CHANGE_PASS:`${API_PREFIX}/auth/reset-password`
 };
 const userProfileEndpoint = {
   GET_PROFILE: `${API_PREFIX}/users/profile`,
